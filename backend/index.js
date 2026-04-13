@@ -3,7 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const { initCronJobs } = require("./cron/index.js");
 const app = express();
-
+app.use(express.json()); 
 const PORT = process.env.PORT;
 const reportRoutes = require("./routes/reportRoutes.js");
 initCronJobs();

@@ -1,229 +1,236 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
-
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
-.hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
-}
-
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
-}
-
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
-
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
-    }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-#docs {
-  border-right: 1px solid var(--border);
-
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-}
-
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
-}
-
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
-}
-
-.ticks {
-  position: relative;
-  width: 100%;
-
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
-
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
-}
-
+/* ── Layout ── */
 .app-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #ffffff;
   display: flex;
   flex-direction: column;
-}
-
-.powerbi-embed {
-  flex: 1;
+  height: 100vh;
   width: 100%;
-  height: 100%;
-  min-height: 0;
-  position: relative;
+  overflow: hidden;
 }
 
-/* Wrapper for PowerBIEmbed - this ensures full screen */
 .powerbi-wrapper {
+  flex: 1;               /* takes all space between toolbar and tab bar */
+  overflow: hidden;
+  min-height: 0;         /* critical — prevents flex child overflow */
+}
+
+.report-container {
   width: 100%;
   height: 100%;
+  background: #ffffff; 
+}
+
+.report-container iframe {
+  border: none;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+}
+
+/* ── Export toolbar ── */
+.export-toolbar {
   position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 6px 12px;
+  background: #f3f3f3;
+  border-bottom: 1px solid #ddd;
+  z-index: 100;
+  flex-shrink: 0;
+  height: 10px;
 }
 
-/* Target the iframe inside PowerBIEmbed */
-.powerbi-wrapper iframe {
-  width: 100% !important;
-  height: 100% !important;
-  border: none !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
+.export-btn {
+  background: gray;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.export-btn:disabled {
+  background: #999;
+  cursor: not-allowed;
+}
+
+.export-panel {
+  position: absolute;
+  right: 12px;
+  top: 40px;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  z-index: 200;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.export-panel-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.export-panel-row label {
+  font-size: 13px;
+  color: #555;
+  min-width: 50px;
+}
+
+.export-panel-row select {
+  flex: 1;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  background: white;
+  color: black;
+}
+
+.export-format-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.export-format-btns button {
+  padding: 6px 14px;
+  border: 1px solid darkgreen;
+  border-radius: 4px;
+  color: darkgreen;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.export-format-btns button:hover  { background: darkgreen; color: white; }
+.export-format-btns button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Tab Container with Arrows */
+.page-tab-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-top: 1px solid #e0e0e0;
+  padding: 0;
+  height: 25px;
+}
+
+/* Scroll Buttons */
+.tab-scroll-btn {
+  flex-shrink: 0;
+  width: 30px;
+  height: 100%;
+  background-color: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #666;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.tab-scroll-btn:hover:not(:disabled) {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.tab-scroll-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 
+
+.tab-scroll-right {
+  border-right: 1px solid #e0e0e0;
+}
+
+/* Scrollable Tabs Container */
+.page-tab-bar {
+  flex: 1;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  gap: 2px;
+  padding: 0 4px;
+  height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* Custom scrollbar for WebKit browsers */
+.page-tab-bar::-webkit-scrollbar {
+  height: 4px;
+}
+
+.page-tab-bar::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+.page-tab-bar::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 2px;
+}
+
+.page-tab-bar::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0;
+}
+
+/* Individual Tabs */
+.page-tab {
+  flex-shrink: 0;
+  padding: 0 20px;
+  height: 100%;
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.page-tab:hover {
+  color: #333;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.page-tab--active {
+  color: black;
+  font-weight: bold;
+  border-bottom-color: darkgreen;
+}
+
+/* Optional: Add gradient shadows for smoother edges */
+.page-tab-container::before,
+.page-tab-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.page-tab-container::before {
+  left: 40px;
+  background: linear-gradient(to right, rgba(245,245,245,1), rgba(245,245,245,0));
+}
+
+.page-tab-container::after {
+  right: 40px;
+  background: linear-gradient(to left, rgba(245,245,245,1), rgba(245,245,245,0));
+}
 /* ✅ Loading & Error states */
 .status-container {
   display: flex;
@@ -277,4 +284,3 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-

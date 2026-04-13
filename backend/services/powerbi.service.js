@@ -69,7 +69,7 @@ async function syncReports() {
 
       await client.query(
         `
-        INSERT INTO customer_report_staging (
+        INSERT INTO powerbi_report_mapping (
           report_key, report_name, report_id, dataset_id, workspace_id
         )
         VALUES ($1, $2, $3, $4, $5)
@@ -96,7 +96,7 @@ async function syncReports() {
     if (reportIds.length > 0) {
       await client.query(
         `
-        UPDATE customer_report_staging
+        UPDATE powerbi_report_mapping
         SET is_active = FALSE
         WHERE report_id NOT IN (${reportIds.map((_, i) => `$${i + 1}`).join(",")})
         `,
