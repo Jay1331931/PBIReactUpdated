@@ -120,25 +120,25 @@ const reportController = {
   },
 
   // ── NEW: POST /reports/exportToAzure ─────────────────────────────────────────
-exportToAzure: async (req, res) => {
-  try {
-    const { reportKey, format, visualData, filters } = req.body;
+  exportToAzure: async (req, res) => {
+    try {
+      const { reportKey, format, visualData, filters } = req.body;
 
-    if (!reportKey)   return res.status(400).json({ success: false, error: "reportKey is required" });
-    if (!format)      return res.status(400).json({ success: false, error: "format is required" });
-    if (!visualData)  return res.status(400).json({ success: false, error: "visualData is required" });
+      if (!reportKey)   return res.status(400).json({ success: false, error: "reportKey is required" });
+      if (!format)      return res.status(400).json({ success: false, error: "format is required" });
+      if (!visualData)  return res.status(400).json({ success: false, error: "visualData is required" });
 
-    const { sasUrl, filename } = await reportModel.exportToAzureModel(
-      reportKey, format.toLowerCase(), visualData, filters
-    );
+      const { sasUrl, filename } = await reportModel.exportToAzureModel(
+        reportKey, format.toLowerCase(), visualData, filters
+      );
 
-    return res.json({ success: true, sasUrl, filename });
+      return res.json({ success: true, sasUrl, filename });
 
-  } catch (error) {
-    console.error("❌ exportToAzure Error:", error.message);
-    return res.status(500).json({ success: false, error: error.message });
-  }
-},
+    } catch (error) {
+      console.error("❌ exportToAzure Error:", error.message);
+      return res.status(500).json({ success: false, error: error.message });
+    }
+  },
 };
 
 module.exports = reportController;
